@@ -1,44 +1,24 @@
-import { KeyboardEvent, useState } from "react";
+import { useState } from "react";
 import bgPhoto from "./assets/Group 10.jpg";
 import cardUp from "./assets/Oval Copy 2.png";
 import whiteDots from "./assets/Group 8.svg";
 import cardDown from "./assets/Group 13.png";
 import greyLine from "./assets/Group 12.svg";
 import lines from "./assets/Group 15.svg";
-import Input from "./components/_molecules/input";
+import Input from "./components/_organisms/Input";
+import { handleBackSpaceClick, spaceAddFunc } from "./helpers/helpers";
+import DoubleInput from "./components/_organisms/DoubleInput";
 
-function App() {
+export function App() {
   const [name, setName] = useState<string>("");
   const [number, setNumber] = useState<string>("");
+  const [month, setMonth] = useState<number>(0);
+  const [year, setYear] = useState<number>(0);
   const [nameErr, setNameErr] = useState<boolean>(true);
   const [numberErr, setNumberErr] = useState<boolean>(true);
 
-  const spaceAddFunc = (string: string) => {
-    if (string.length < 6 && string.length != 0 && string.length % 4 === 0) {
-      string = string + " ";
-    }
-    if (string.length < 19 && string.length > 6 && (string.length + 1) % 5 === 0) {
-      string = string + " ";
-    }
-    return string;
-  };
-
-  const handleBackSpaceClick = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.keyCode === 8) {
-      const inputElement = event.target as HTMLInputElement;
-      if (inputElement.value.length === 5) {
-        const newNum = inputElement.value.slice(0, 4);
-        setNumber(newNum);
-      }
-      if (inputElement.value.length === 10) {
-        const newNum = inputElement.value.slice(0, 9);
-        setNumber(newNum);
-      }
-      if (inputElement.value.length === 15) {
-        const newNum = inputElement.value.slice(0, 14);
-        setNumber(newNum);
-      }
-    }
+  const handleBackSpace = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    handleBackSpaceClick(event, setNumber);
   };
 
   return (
@@ -65,10 +45,10 @@ function App() {
           onChange={(e) => setName(e.target.value)}
           err={nameErr}
           errMessage={"Enter valid Name"}
-          onkeydown={handleBackSpaceClick}
+          onkeydown={handleBackSpace}
         />
         <Input
-          onkeydown={handleBackSpaceClick}
+          onkeydown={handleBackSpace}
           headline={"CARD NAME"}
           example={"e.g. 1234 5678 9123 0000"}
           value={number}
@@ -79,6 +59,21 @@ function App() {
           }}
           err={numberErr}
           errMessage={"Wrong format, numbers only"}
+        />
+        <DoubleInput
+          headline={"Exp. Date (MM/YY)"}
+          example_1={"MM"}
+          example_2={"YY"}
+          value_1={month}
+          value_2={year}
+          err={false}
+          errMessage={"Can’t be blank"}
+          onChange_1={(e) => {
+            setMonth(parseInt(e.target.value));
+          }}
+          onChange_2={(e) => {
+            setYear(parseInt(e.target.value));
+          }}
         />
       </div>
     </div>
