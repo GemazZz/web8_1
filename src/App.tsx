@@ -1,21 +1,20 @@
 import { useState } from "react";
 import bgPhoto from "./assets/Group 10.jpg";
-import cardUp from "./assets/Oval Copy 2.png";
-import whiteDots from "./assets/Group 8.svg";
-import cardDown from "./assets/Group 13.png";
-import greyLine from "./assets/Group 12.svg";
-import lines from "./assets/Group 15.svg";
 import Input from "./components/_organisms/Input";
 import { handleBackSpaceClick, spaceAddFunc } from "./helpers/helpers";
 import DoubleInput from "./components/_organisms/DoubleInput";
+import CardImages from "./components/_molecules/cardImages";
 
 export function App() {
   const [name, setName] = useState<string>("");
   const [number, setNumber] = useState<string>("");
-  const [month, setMonth] = useState<number>(0);
-  const [year, setYear] = useState<number>(0);
+  const [month, setMonth] = useState<string>("");
+  const [year, setYear] = useState<string>("");
+  const [cvc, setCvc] = useState<string>("");
   const [nameErr, setNameErr] = useState<boolean>(true);
   const [numberErr, setNumberErr] = useState<boolean>(true);
+  const [dateErr, setDateErr] = useState<boolean>(true);
+  const [cvcErr, setCvcErr] = useState<boolean>(true);
 
   const handleBackSpace = (event: React.KeyboardEvent<HTMLInputElement>) => {
     handleBackSpaceClick(event, setNumber);
@@ -24,20 +23,8 @@ export function App() {
   return (
     <div className="relative flex justify-between">
       <img src={bgPhoto} alt="#" className="h-[100vh] absolute z-[0]" />
-      <div>
-        <div>
-          <img src={cardUp} alt="#" className="z-[1] relative top-[160px] left-[160px]"></img>
-          <h1 className="z-[4] absolute text-white left-[195px] top-[300px] text-[30px] tracking-widest">
-            {number ? number : "0000 0000 0000 0000"}
-          </h1>
-          <h1 className="z-[4] absolute text-white left-[195px] top-[355px] text-[16px]">{name ? name : "JANE APPLESEED"}</h1>
-          <img src={whiteDots} alt="#" className="relative z-[2] left-[190px] bottom-[50px]" />
-        </div>
-        <img src={cardDown} alt="#" className="relative z-[1] left-[300px] top-[160px]" />
-        <img src={greyLine} alt="#" className="relative z-[2] left-[345px] top-[16px]" />
-        <img src={lines} alt="#" className="relative z-[2] left-[430px] top-[56px]" />
-      </div>
-      <div className="w-[381px] h-[352px] relative right-[600px] top-[250px] ">
+      <CardImages number={number} name={name} />
+      <div className="relative right-[600px] top-[250px] ">
         <Input
           headline={"CARDHOLDER NAME"}
           example={"e.g. Jane Appleseed"}
@@ -46,6 +33,9 @@ export function App() {
           err={nameErr}
           errMessage={"Enter valid Name"}
           onkeydown={handleBackSpace}
+          type={"text"}
+          width={381}
+          margin={35}
         />
         <Input
           onkeydown={handleBackSpace}
@@ -59,22 +49,45 @@ export function App() {
           }}
           err={numberErr}
           errMessage={"Wrong format, numbers only"}
+          type={"text"}
+          width={381}
+          margin={35}
         />
-        <DoubleInput
-          headline={"Exp. Date (MM/YY)"}
-          example_1={"MM"}
-          example_2={"YY"}
-          value_1={month}
-          value_2={year}
-          err={false}
-          errMessage={"Can’t be blank"}
-          onChange_1={(e) => {
-            setMonth(parseInt(e.target.value));
-          }}
-          onChange_2={(e) => {
-            setYear(parseInt(e.target.value));
-          }}
-        />
+        <div className="flex align-top">
+          <DoubleInput
+            headline={"Exp. Date (MM/YY)"}
+            example_1={"MM"}
+            example_2={"YY"}
+            value_1={month}
+            value_2={year}
+            err={dateErr}
+            errMessage={"Can’t be blank"}
+            onChange_1={(e) => {
+              if (e.target.value.length <= 2) {
+                setMonth(e.target.value);
+              }
+            }}
+            onChange_2={(e) => {
+              if (e.target.value.length <= 2) {
+                setYear(e.target.value);
+              }
+            }}
+          />
+          <Input
+            type={"number"}
+            width={191}
+            headline={"CVC"}
+            example={"e.g. 123"}
+            value={cvc}
+            err={cvcErr}
+            errMessage={"Can’t be blank"}
+            onChange={(e) => {
+              if (e.target.value.length <= 3) {
+                setCvc(e.target.value);
+              }
+            }}
+          />
+        </div>
       </div>
     </div>
   );
