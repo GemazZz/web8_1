@@ -5,7 +5,7 @@ import greyLine from "../../assets/Group 12.svg";
 import lines from "../../assets/Group 15.svg";
 import { CardProps } from "../../props/common";
 
-function CardImages({ number, name }: CardProps) {
+function CardImages({ number, name, cvc }: CardProps) {
   return (
     <div>
       <div>
@@ -17,6 +17,7 @@ function CardImages({ number, name }: CardProps) {
         <img src={whiteDots} alt="#" className="relative z-[2] left-[190px] bottom-[50px]" />
       </div>
       <img src={cardDown} alt="#" className="relative z-[1] left-[300px] top-[160px]" />
+      <p className="z-[4] absolute text-white left-[650px] top-[560px] text-[17px]">{cvc ? cvc : "000"}</p>
       <img src={greyLine} alt="#" className="relative z-[2] left-[345px] top-[16px]" />
       <img src={lines} alt="#" className="relative z-[2] left-[430px] top-[56px]" />
     </div>

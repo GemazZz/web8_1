@@ -4,6 +4,7 @@ import Input from "./components/_organisms/Input";
 import { handleBackSpaceClick, spaceAddFunc } from "./helpers/helpers";
 import DoubleInput from "./components/_organisms/DoubleInput";
 import CardImages from "./components/_molecules/cardImages";
+import Button from "./components/_molecules/Button";
 
 export function App() {
   const [name, setName] = useState<string>("");
@@ -23,7 +24,7 @@ export function App() {
   return (
     <div className="relative flex justify-between">
       <img src={bgPhoto} alt="#" className="h-[100vh] absolute z-[0]" />
-      <CardImages number={number} name={name} />
+      <CardImages number={number} name={name} cvc={cvc} />
       <div className="relative right-[600px] top-[250px] ">
         <Input
           headline={"CARDHOLDER NAME"}
@@ -53,7 +54,7 @@ export function App() {
           width={381}
           margin={35}
         />
-        <div className="flex align-top">
+        <div className="flex">
           <DoubleInput
             headline={"Exp. Date (MM/YY)"}
             example_1={"MM"}
@@ -88,6 +89,13 @@ export function App() {
             }}
           />
         </div>
+        <Button
+          onClick={() => {
+            console.log("hello");
+          }}
+        >
+          confirm
+        </Button>
       </div>
     </div>
   );

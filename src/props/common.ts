@@ -28,4 +28,10 @@ export interface DoubleInputProps {
 export interface CardProps {
   number: string;
   name: string;
+  cvc: string;
+}
+
+export interface ButtonProps {
+  children: React.ReactNode;
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
