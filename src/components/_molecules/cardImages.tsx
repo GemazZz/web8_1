@@ -7,19 +7,17 @@ import { CardProps } from "../../props/common";
 
 function CardImages({ number, name, cvc }: CardProps) {
   return (
-    <div>
-      <div>
-        <img src={cardUp} alt="#" className="z-[1] relative top-[160px] left-[160px]"></img>
-        <h1 className="z-[4] absolute text-white left-[195px] top-[300px] text-[30px] tracking-widest">
-          {number ? number : "0000 0000 0000 0000"}
-        </h1>
-        <h1 className="z-[4] absolute text-white left-[195px] top-[355px] text-[16px]">{name ? name : "JANE APPLESEED"}</h1>
-        <img src={whiteDots} alt="#" className="relative z-[2] left-[190px] bottom-[50px]" />
-      </div>
-      <img src={cardDown} alt="#" className="relative z-[1] left-[300px] top-[160px]" />
-      <p className="z-[4] absolute text-white left-[650px] top-[560px] text-[17px]">{cvc ? cvc : "000"}</p>
-      <img src={greyLine} alt="#" className="relative z-[2] left-[345px] top-[16px]" />
-      <img src={lines} alt="#" className="relative z-[2] left-[430px] top-[56px]" />
+    <div className="relative right-[120px]">
+      <img src={cardUp} alt="#" className="z-[1] relative"></img>
+      <img src={whiteDots} alt="#" className="relative z-[2] left-[30px] bottom-[210px]" />
+      <h1 className="z-[4] absolute text-white left-[25px] top-[140px] text-[30px] tracking-widest">
+        {number ? number : "0000 0000 0000 0000"}
+      </h1>
+      <h1 className="z-[4] absolute text-white left-[25px] top-[195px] text-[16px]">{name ? name : "JANE APPLESEED"}</h1>
+      <img src={cardDown} alt="#" className="relative z-[1] left-[140px] " />
+      <p className="z-[4] absolute text-white left-[500px] top-[400px] text-[17px]">{cvc ? cvc : "000"}</p>
+      <img src={greyLine} alt="#" className="absolute z-[2] left-[185px] top-[393px] " />
+      <img src={lines} alt="#" className="absolute z-[2] left-[280px] top-[456px]" />
     </div>
   );
 }
