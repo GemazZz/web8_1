@@ -104,16 +104,20 @@ export function App() {
             <Button
               onClick={() => {
                 const containsLetter: boolean = /[a-zA-Z]/.test(number);
-                if (name !== "" && (number.length === 19 || !containsLetter) && (month.length === 2 || year.length === 2) && cvc.length !== 2) {
+                if (name !== "" && (number.length === 19 || !containsLetter) && (month.length === 2 || year.length === 2) && cvc.length === 3) {
                   setInput(false);
                   setFinish(true);
-                } else if (name === "") {
+                }
+                if (name === "") {
                   setNameErr(true);
-                } else if (number.length !== 19 || containsLetter) {
+                }
+                if (number.length !== 19 || containsLetter) {
                   setNumberErr(true);
-                } else if (month.length !== 2 || year.length !== 2) {
+                }
+                if (month.length !== 2 || year.length !== 2) {
                   setDateErr(true);
-                } else if (cvc.length !== 2) {
+                }
+                if (cvc.length !== 3) {
                   setCvcErr(true);
                 }
               }}
